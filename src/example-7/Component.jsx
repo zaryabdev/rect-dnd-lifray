@@ -1,15 +1,16 @@
-import React, { useRef } from "react";
+import React, { useRef, useContext } from "react";
 import { useDrag } from "react-dnd";
 import { COMPONENT } from "./constants";
-
+import { AppContext } from "./AppContext";
+// backgroundColor: "#495464",
 const style = {
     border: "1px dashed black",
-    padding: "0.5rem 1rem",
-    backgroundColor: "#495464",
+    // padding: "0.5rem 1rem",
     cursor: "move",
 };
 
 const Component = ({ data, components, path }) => {
+    const appContext = useContext(AppContext);
     const ref = useRef(null);
 
     const [{ isDragging }, drag] = useDrag({
@@ -25,18 +26,29 @@ const Component = ({ data, components, path }) => {
     });
 
     const opacity = isDragging ? 0 : 1;
+    const isSelected = data.id === appContext.selectedComponent.id;
+    let outline = {};
+    if (isSelected) {
+        outline = {
+            outline: `3px solid #00a2ff`,
+        };
+    }
     drag(ref);
 
     const component = components[data.id];
 
     return (
         <div
+            onClick={() => {
+                appContext.handleSelectComponent(component);
+            }}
             ref={ref}
-            style={{ ...style, opacity }}
+            style={{ ...style, opacity, ...outline }}
             className="component draggable"
         >
-            <div>{data.id}</div>
-            <div>{component.content}</div>
+            <small>
+                CID:{data.id} | <span>{component.content}</span>
+            </small>
         </div>
     );
 };

@@ -34,8 +34,8 @@ body {
 .page {
     flex: 1 1 auto;
     padding: 0 20px;
-    margin: 20px;
-    border: 1px solid #ffd4b2;
+    /* margin: 20px; */
+    /* border: 1px solid #ffd4b2; */
     background-color: #ffd4b2;
 }
 
@@ -46,6 +46,9 @@ body {
     height: 40px;
     transition: 200ms all;
     margin: 5px;
+}
+.dropZone:hover {
+    outline: 3px solid #00a2ff;
 }
 
 .dropZone:nth-of-type(2n) {

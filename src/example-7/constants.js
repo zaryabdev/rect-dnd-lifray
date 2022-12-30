@@ -10,24 +10,48 @@ export const SIDEBAR_ITEMS = [
         id: uuidv4(),
         type: SIDEBAR_ITEM,
         component: {
-            type: "container",
-            content: "I AM A CONTAINER",
+            type: "navbar",
+            content: "NAVBAR",
         },
     },
     {
         id: uuidv4(),
         type: SIDEBAR_ITEM,
         component: {
-            type: "grid",
-            content: "I AM A GRID",
+            type: "heading",
+            content: "HEADING",
         },
     },
     {
         id: uuidv4(),
         type: SIDEBAR_ITEM,
         component: {
-            type: "component",
-            content: " 🫂 I AM A COMPONENT",
+            type: "button",
+            content: "BUTTON",
+        },
+    },
+    {
+        id: uuidv4(),
+        type: SIDEBAR_ITEM,
+        component: {
+            type: "card",
+            content: "CARD",
+        },
+    },
+    {
+        id: uuidv4(),
+        type: SIDEBAR_ITEM,
+        component: {
+            type: "image",
+            content: "IMAGE",
+        },
+    },
+    {
+        id: uuidv4(),
+        type: SIDEBAR_ITEM,
+        component: {
+            type: "footer",
+            content: "FOOTER",
         },
     },
 ];

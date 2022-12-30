@@ -41,7 +41,7 @@ const Column = ({ data, components, handleDrop, path }) => {
             style={{ ...style, opacity }}
             className="base draggable column"
         >
-            {data.id}
+            <small>COLUMN ID : {data.id}</small>
             {data.children.map((component, index) => {
                 const currentPath = `${path}-${index}`;
 
