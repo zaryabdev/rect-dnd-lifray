@@ -1,4 +1,5 @@
-import React, { useRef, useContext } from "react";
+import React, { useRef, useContext, Fragment } from "react";
+
 import { useDrag } from "react-dnd";
 import { COMPONENT } from "./constants";
 import { AppContext } from "./AppContext";
@@ -38,18 +39,20 @@ const Component = ({ data, components, path }) => {
     const component = components[data.id];
 
     return (
-        <div
-            onClick={() => {
-                appContext.handleSelectComponent(component);
-            }}
-            ref={ref}
-            style={{ ...style, opacity, ...outline }}
-            className="component draggable"
-        >
-            <small>
-                CID:{data.id} | <span>{component.content}</span>
-            </small>
-        </div>
+        <Fragment>
+            <div
+                onClick={() => {
+                    appContext.handleSelectComponent(component);
+                }}
+                ref={ref}
+                style={{ ...style, opacity, ...outline }}
+                className="component draggable"
+            >
+                <small>
+                    CID:{data.id} | <span>{component.content}</span>
+                </small>
+            </div>
+        </Fragment>
     );
 };
 

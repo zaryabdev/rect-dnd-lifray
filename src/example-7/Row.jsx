@@ -1,10 +1,12 @@
-import React, { useRef } from "react";
+import React, { useRef, useContext } from "react";
 import { useDrag } from "react-dnd";
 import { ROW } from "./constants";
 import DropZone from "./DropZone";
 import Column from "./Column";
+import { AppContext } from "./AppContext";
 
 const Row = ({ data, components, handleDrop, path }) => {
+    const appContext = useContext(AppContext);
     const ref = useRef(null);
 
     const [{ isDragging }, dragRef] = useDrag({
@@ -21,7 +23,15 @@ const Row = ({ data, components, handleDrop, path }) => {
     });
 
     const opacity = isDragging ? 0.2 : 1;
-
+    const isSelected = data.id === appContext.selectedRow.id;
+    let outline = {};
+    if (isSelected) {
+        outline = {
+            outline: `3px solid #00a2ff`,
+        };
+    } else {
+        console.log(data.id);
+    }
     dragRef(ref);
 
     function renderColumn(column, currentPath) {
@@ -37,8 +47,15 @@ const Row = ({ data, components, handleDrop, path }) => {
     }
 
     return (
-        <div ref={ref} style={{ opacity }} className="base draggable row">
-            <small>ROW ID : {data.id} </small>
+        <div
+            ref={ref}
+            style={{ opacity, ...outline }}
+            className="base draggable row"
+            onClick={() => appContext.handleSelectRow(data)}
+        >
+            <small>
+                ROW ID : {data.id} {}{" "}
+            </small>
             <div className="columns">
                 {data.children.map((column, index) => {
                     const currentPath = `${path}-${index}`;

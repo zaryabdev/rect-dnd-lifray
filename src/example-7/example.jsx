@@ -28,6 +28,7 @@ const Container = () => {
     const [layout, setLayout] = useState(initialLayout);
     const [components, setComponents] = useState(initialComponents);
     const [selectedComponent, setSelectedComponent] = useState({});
+    const [selectedRow, setSelectedRow] = useState({});
 
     useEffect(() => {
         console.log(`Current state of layout`);
@@ -151,6 +152,11 @@ const Container = () => {
         setSelectedComponent(component);
     };
 
+    const handleSelectRow = (row) => {
+        console.log(row);
+        setSelectedRow(row);
+    };
+
     function renderRow(row, currentPath) {
         return (
             <Row
@@ -169,6 +175,8 @@ const Container = () => {
                 value={{
                     selectedComponent,
                     handleSelectComponent,
+                    selectedRow,
+                    handleSelectRow,
                 }}
             >
                 <div className="pageContainer">
