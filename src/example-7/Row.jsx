@@ -30,7 +30,7 @@ const Row = ({ data, components, handleDrop, path }) => {
             outline: `3px solid #00a2ff`,
         };
     } else {
-        console.log(data.id);
+        // console.log(data.id);
     }
     dragRef(ref);
 

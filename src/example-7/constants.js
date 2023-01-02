@@ -5,37 +5,55 @@ export const ROW = "row";
 export const COLUMN = "col";
 export const COMPONENT = "component";
 
+// const wrapper = {
+//     title: "",
+// authorizations: [
+//     {
+//         type: "GROUP",
+//         value: "ADMIN", // eg: ADMIN - REGISTERED
+//         permission: "ADMIN", // VIEW - EDIT - ADMIN
+//     },
+//     {
+//         type: "GROUP",
+//         value: "USER", // eg: ADMIN - REGISTERED
+//         permission: "VIEW", // VIEW - EDIT - ADMIN
+//     },
+// ],
+// component: {
+//     id: "",
+//     type: "",
+// },
+// props: [],
+// values: [{
+// id: "",
+// value : "",
+//}]
+// },
+
+// component will provide props to this wrapper
+
+// const component = {
+//     props: [
+//         {
+//             id: "title",
+//             label: "Label",
+//             type: "text", // text, date, options,
+//             value: "",
+//             options: [], // optional
+//         },
+//     ],
+// };
+
 export const SIDEBAR_ITEMS = [
     {
         id: uuidv4(),
         type: SIDEBAR_ITEM,
         component: {
-            type: "navbar",
-            content: "NAVBAR",
-        },
-    },
-    {
-        id: uuidv4(),
-        type: SIDEBAR_ITEM,
-        component: {
-            type: "heading",
-            content: "HEADING",
-        },
-    },
-    {
-        id: uuidv4(),
-        type: SIDEBAR_ITEM,
-        component: {
-            type: "button",
-            content: "BUTTON",
-        },
-    },
-    {
-        id: uuidv4(),
-        type: SIDEBAR_ITEM,
-        component: {
             type: "card",
-            content: "CARD",
+            data: {
+                content: "CARD",
+                serviveKey: "card.key",
+            },
         },
     },
     {
@@ -43,15 +61,10 @@ export const SIDEBAR_ITEMS = [
         type: SIDEBAR_ITEM,
         component: {
             type: "image",
-            content: "IMAGE",
-        },
-    },
-    {
-        id: uuidv4(),
-        type: SIDEBAR_ITEM,
-        component: {
-            type: "footer",
-            content: "FOOTER",
+            data: {
+                content: "IMAGE",
+                serviveKey: "image.key",
+            },
         },
     },
 ];

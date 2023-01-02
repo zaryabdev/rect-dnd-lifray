@@ -18,6 +18,7 @@ import {
     handleMoveToDifferentParent,
     handleMoveSidebarComponentIntoParent,
     handleRemoveItemFromLayout,
+    handleUpdateComponentDataFromLayout,
 } from "./helpers";
 import "./styles.css";
 
@@ -27,13 +28,23 @@ const Container = () => {
 
     const [layout, setLayout] = useState(initialLayout);
     const [components, setComponents] = useState(initialComponents);
-    const [selectedComponent, setSelectedComponent] = useState({});
+    const [selectedComponent, setSelectedComponent] = useState({
+        id: "",
+    });
     const [selectedRow, setSelectedRow] = useState({});
+    const [componentData, setComponentData] = useState({
+        serviceKey: "",
+    });
 
-    useEffect(() => {
-        console.log(`Current state of layout`);
-        console.log(layout);
-    }, [layout]);
+    // useEffect(() => {
+    //     console.log(`Current state of layout`);
+    //     console.log(layout);
+    // }, [layout]);
+
+    // useEffect(() => {
+    //     console.log(`Current state of componentData`);
+    //     console.log(componentData);
+    // }, [componentData]);
 
     const handleDrop = useCallback(
         (dropZone, item) => {
@@ -47,6 +58,7 @@ const Container = () => {
             const newItem = {
                 id: item.id,
                 type: item.type,
+                data: item.component.data,
             };
 
             if (item.type === COLUMN) {
@@ -65,6 +77,7 @@ const Container = () => {
                 const newItem = {
                     id: newComponent.id,
                     type: COMPONENT,
+                    data: item.component.data,
                 };
 
                 setComponents({
@@ -84,12 +97,15 @@ const Container = () => {
             }
 
             // move down here since sidebar items dont have path
-
-            const splitItemPath = item.path.split("-");
+            debugger;
+            const splitItemPath = item.path ? item.path.split("-") : [];
             const pathToItem = splitItemPath.slice(0, -1).join("-");
 
             // 2. pure move ( no create)
-            if (splitItemPath.length === splitDropZonePath.length) {
+            if (
+                splitItemPath &&
+                splitItemPath.length === splitDropZonePath.length
+            ) {
                 // 2a. move within parent
                 if (pathToItem === pathToDropZone) {
                     const updatedLayput = handleMoveWithinParent(
@@ -136,6 +152,8 @@ const Container = () => {
 
     const handleDropToTrashBin = useCallback(
         (dropZone, item) => {
+            debugger;
+            console.log(item);
             const splitItemPath = item.path.split("-");
             console.log({ layout });
             const removedItemLayout = handleRemoveItemFromLayout(
@@ -148,13 +166,61 @@ const Container = () => {
         [layout]
     );
 
+    const handleRemoveFromLayput = useCallback(
+        (item) => {
+            debugger;
+            console.log(item);
+
+            const splitItemPath = item.path.split("-");
+            console.log({ layout });
+            const removedItemLayout = handleRemoveItemFromLayout(
+                layout,
+                splitItemPath
+            );
+            console.log({ removedItemLayout });
+            setLayout(removedItemLayout);
+        },
+        [layout]
+    );
+
+    const handleUpdateComponentData = useCallback(
+        (item) => {
+            console.log(item);
+
+            const splitItemPath = item.path.split("-");
+
+            console.log(`Layout before`);
+
+            console.log({ layout });
+            const updatedItemLayout = handleUpdateComponentDataFromLayout(
+                layout,
+                splitItemPath,
+                selectedComponent,
+                componentData
+            );
+            // console.log(`Layout after`);
+            // console.log({ updatedItemLayout });
+            setLayout(updatedItemLayout);
+        },
+        [layout, selectedComponent, componentData]
+    );
+
     const handleSelectComponent = (component) => {
         setSelectedComponent(component);
     };
 
     const handleSelectRow = (row) => {
-        console.log(row);
+        // console.log(row);
         setSelectedRow(row);
+    };
+
+    const handleComponentInput = (event) => {
+        let name = event.target.name;
+        let value = event.target.value;
+        setComponentData((prev) => ({
+            ...prev,
+            [name]: value,
+        }));
     };
 
     function renderRow(row, currentPath) {
@@ -173,6 +239,7 @@ const Container = () => {
         <div className="body">
             <AppContext.Provider
                 value={{
+                    layout,
                     selectedComponent,
                     handleSelectComponent,
                     selectedRow,
@@ -206,12 +273,14 @@ const Container = () => {
                             isLast
                         ></DropZone>
                     </div>
-                    <TrashDropZone
-                        layout={{
-                            layout,
-                        }}
-                        onDrop={handleDropToTrashBin}
-                    ></TrashDropZone>
+                    <div className="m-2">
+                        <TrashDropZone
+                            layout={{
+                                layout,
+                            }}
+                            onDrop={handleDropToTrashBin}
+                        ></TrashDropZone>
+                    </div>
                 </div>
                 <div className="sideBar">
                     <center>
@@ -225,6 +294,40 @@ const Container = () => {
                             />
                         );
                     })}
+                    <div className="formControl">
+                        <hr />
+                        <div className="mb-3">
+                            <label className="form-label">Service Key</label>
+                            <input
+                                type="text"
+                                className="form-control form-control-sm"
+                                id="service-key"
+                                name="serviceKey"
+                                disabled={selectedComponent.id === ""}
+                                onChange={(e) => handleComponentInput(e)}
+                            />
+                        </div>
+                        <button
+                            type="button"
+                            className="btn btn-sm btn-warning me-2"
+                            onClick={() => {
+                                handleUpdateComponentData(selectedComponent);
+                            }}
+                            disabled={selectedComponent.id === ""}
+                        >
+                            Update
+                        </button>
+                        <button
+                            type="button"
+                            className="btn btn-sm btn-danger"
+                            onClick={() => {
+                                handleRemoveFromLayput(selectedComponent);
+                            }}
+                            disabled={selectedComponent.id === ""}
+                        >
+                            Delete
+                        </button>
+                    </div>
                 </div>
             </AppContext.Provider>
         </div>

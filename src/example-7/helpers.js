@@ -132,6 +132,7 @@ export const handleMoveToDifferentParent = (
     splitItemPath,
     item
 ) => {
+    debugger;
     let newLayoutStructure;
     const COLUMN_STRUCTURE = {
         type: COLUMN,
@@ -222,4 +223,41 @@ export const handleMoveSidebarComponentIntoParent = (
 
 export const handleRemoveItemFromLayout = (layout, splitItemPath) => {
     return removeChildFromChildren(layout, splitItemPath);
+};
+
+export const handleUpdateComponentDataFromLayout = (
+    layout,
+    splitItemPath,
+    selectedItem,
+    data
+) => {
+    debugger;
+
+    let updatedLayout = [...layout];
+
+    const rowIndex = Number(splitItemPath.slice(0, 1));
+    const columnIndex = Number(splitItemPath.slice(1, 2));
+    const componentIndex = Number(splitItemPath.slice(2, 3));
+
+    // const currentRow = updatedLayout[rowIndex];
+    // const currentColumn = currentRow.children[columnIndex];
+    // const currentComponent = currentColumn.children[componentIndex];
+    // currentComponent.data = data;
+
+    updatedLayout[rowIndex].children[columnIndex].children[
+        componentIndex
+    ].data = data;
+
+    console.log("updatedLayout after");
+    console.log(updatedLayout);
+
+    // updatedLayout[rowIndex] = {
+    //     ...nodeChildren,
+    //     children: removeChildFromChildren(
+    //         nodeChildren.children,
+    //         splitItemChildrenPath
+    //     ),
+    // };
+
+    return updatedLayout;
 };

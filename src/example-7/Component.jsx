@@ -1,4 +1,4 @@
-import React, { useRef, useContext, Fragment } from "react";
+import React, { useRef, useContext, Fragment, useState } from "react";
 
 import { useDrag } from "react-dnd";
 import { COMPONENT } from "./constants";
@@ -12,6 +12,23 @@ const style = {
 
 const Component = ({ data, components, path }) => {
     const appContext = useContext(AppContext);
+    const [updatedLayout, setUpdatedLayout] = useState(appContext.layout);
+    const splitItemPath = path.split("-");
+
+    const rowIndex = Number(splitItemPath.slice(0, 1));
+    const columnIndex = Number(splitItemPath.slice(1, 2));
+    const componentIndex = Number(splitItemPath.slice(2, 3));
+
+    const currentRow = updatedLayout[rowIndex];
+    const currentColumn = currentRow.children[columnIndex];
+    const currentComponent = currentColumn.children[componentIndex];
+
+    const [componentToSelect] = useState({
+        id: data.id,
+        type: COMPONENT,
+        path: path,
+        component: currentComponent,
+    });
     const ref = useRef(null);
 
     const [{ isDragging }, drag] = useDrag({
@@ -19,6 +36,7 @@ const Component = ({ data, components, path }) => {
             id: data.id,
             type: COMPONENT,
             path: path,
+            component: currentComponent,
         },
         type: COMPONENT,
         collect: (monitor) => ({
@@ -36,20 +54,21 @@ const Component = ({ data, components, path }) => {
     }
     drag(ref);
 
-    const component = components[data.id];
+    // const component = components[data.id];
 
     return (
         <Fragment>
             <div
                 onClick={() => {
-                    appContext.handleSelectComponent(component);
+                    appContext.handleSelectComponent(componentToSelect);
                 }}
                 ref={ref}
                 style={{ ...style, opacity, ...outline }}
                 className="component draggable"
             >
                 <small>
-                    CID:{data.id} | <span>{component.content}</span>
+                    {/* CID:{data.id} |{" "} */}
+                    <span> {JSON.stringify(currentComponent?.data)}</span>
                 </small>
             </div>
         </Fragment>

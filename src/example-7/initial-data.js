@@ -4,53 +4,33 @@ const initialData = {
     layout: [
         // {
         //     type: ROW,
-        //     id: "row0",
+        //     id: "row-zero-id",
         //     children: [
         //         {
         //             type: COLUMN,
-        //             id: "column0",
+        //             id: "col-zero-id",
         //             children: [
         //                 {
         //                     type: COMPONENT,
-        //                     id: "component0",
-        //                 },
-        //                 {
-        //                     type: COMPONENT,
-        //                     id: "component1",
+        //                     id: "component-zero-id",
         //                 },
         //             ],
         //         },
         //         {
         //             type: COLUMN,
-        //             id: "column1",
+        //             id: "col-one-id",
         //             children: [
         //                 {
         //                     type: COMPONENT,
-        //                     id: "component2",
-        //                 },
-        //             ],
-        //         },
-        //     ],
-        // },
-        // {
-        //     type: ROW,
-        //     id: "row1",
-        //     children: [
-        //         {
-        //             type: COLUMN,
-        //             id: "column2",
-        //             children: [
-        //                 {
-        //                     type: COMPONENT,
-        //                     id: "component3",
+        //                     id: "component-one-id",
         //                 },
         //                 {
         //                     type: COMPONENT,
-        //                     id: "component0",
+        //                     id: "component-two-id",
         //                 },
         //                 {
         //                     type: COMPONENT,
-        //                     id: "component2",
+        //                     id: "component-three-id",
         //                 },
         //             ],
         //         },
@@ -58,11 +38,38 @@ const initialData = {
         // },
     ],
     components: {
-        // component0: { id: "component0", type: "input", content: "Some input" },
-        // component1: { id: "component1", type: "image", content: "Some image" },
-        // component2: { id: "component2", type: "email", content: "Some email" },
-        // component3: { id: "component3", type: "name", content: "Some name" },
-        // component4: { id: "component4", type: "phone", content: "Some phone" },
+        // "component-zero-id": {
+        //     id: "component-self-zero-id",
+        //     type: "image",
+        //     data: {
+        //         content: "IMAGE",
+        //         serviveKey: "image.key",
+        //     },
+        // },
+        // "component-one-id": {
+        //     id: "component-self-one-id",
+        //     type: "card",
+        //     data: {
+        //         content: "CARD",
+        //         serviveKey: "card.key",
+        //     },
+        // },
+        // "component-two-id": {
+        //     id: "component-self-two-id",
+        //     type: "card",
+        //     data: {
+        //         content: "CARD",
+        //         serviveKey: "card.key",
+        //     },
+        // },
+        // "component-three-id": {
+        //     id: "component-self-three-id",
+        //     type: "card",
+        //     data: {
+        //         content: "CARD",
+        //         serviveKey: "card.key",
+        //     },
+        // },
     },
 };
 
