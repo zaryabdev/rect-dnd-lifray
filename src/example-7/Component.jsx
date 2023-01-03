@@ -36,7 +36,12 @@ const Component = ({ componentData, components, path }) => {
         <div
             ref={ref}
             style={{ ...style, opacity }}
-            className="component draggable"
+            className={`component draggable ${
+                context.selectedComponent.component_id ===
+                componentData.component_id
+                    ? "outlineBlue"
+                    : ""
+            } `}
             onClick={() => context.handleSelectComponent(component)}
         >
             <div>{componentData.id}</div>

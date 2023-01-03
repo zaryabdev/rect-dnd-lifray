@@ -68,6 +68,10 @@ body {
     transition: 100ms all;
 }
 
+.outlineBlue {
+    outline: 5px solid #00a2ff;
+}
+
 .component {
     border: 1px solid #579bb1;
     background-color: #579bb1;

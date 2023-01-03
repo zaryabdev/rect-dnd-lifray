@@ -29,7 +29,8 @@ const Container = () => {
 
     const [selectedComponent, setSelectedComponent] = useState({});
     const [inputField, setInputField] = useState({
-        sample: "",
+        serviceKey: "",
+        parmas: "",
     });
     useEffect(() => {
         console.log({ layout });
@@ -156,6 +157,14 @@ const Container = () => {
         [layout]
     );
 
+    const handleUpdateComponentData = () => {
+        debugger;
+
+        let _components = { ...components };
+        _components[selectedComponent.component_id].data = inputField;
+        setComponents(_components);
+    };
+
     const handleInputField = (event) => {
         let name = event.target.name;
         let value = event.target.value;
@@ -183,7 +192,7 @@ const Container = () => {
     }
 
     return (
-        <div className="body">
+        <div className="body container-fluid px-0">
             <AppContext.Provider
                 value={{
                     selectedComponent,
@@ -236,16 +245,33 @@ const Container = () => {
                             />
                         );
                     })}
-                    <form class="form-floating">
+                    <div class="form-floating mb-3">
                         <input
-                            type="email"
-                            class="form-control"
-                            id="floatingInputValue"
-                            placeholder="name@example.com"
-                            value="test@example.com"
+                            type="text"
+                            name="serviceKey"
+                            placeholder="serviceKey"
+                            onChange={(e) => handleInputField(e)}
+                            value={inputField.serviceKey}
                         />
-                        <label for="floatingInputValue">Input with value</label>
-                    </form>
+                        <label for="floatingInputValue">Service Key</label>
+                    </div>
+                    <div class="form-floating">
+                        <input
+                            type="text"
+                            name="parmas"
+                            placeholder="parmas"
+                            onChange={(e) => handleInputField(e)}
+                            value={inputField.parmas}
+                        />
+                        <label for="floatingPassword">Param</label>
+                    </div>
+
+                    <button
+                        className="btn btn-sm btn-dark m-2"
+                        onClick={() => handleUpdateComponentData()}
+                    >
+                        Update
+                    </button>
                     <code>
                         <pre>{JSON.stringify(selectedComponent.data)}</pre>
                     </code>
