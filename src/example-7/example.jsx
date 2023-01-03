@@ -41,8 +41,6 @@ const Container = () => {
         (dropZone, item) => {
             console.log(`ITEM DROPPED`);
             console.log({ item });
-            debugger;
-
             const splitDropZonePath = dropZone.path.split("-");
             const pathToDropZone = splitDropZonePath.slice(0, -1).join("-");
 
@@ -112,7 +110,6 @@ const Container = () => {
                 } else {
                     // 2.b. OR move different parent
                     // TODO FIX columns. item includes children
-                    debugger;
                     const updatedLayout = handleMoveToDifferentParent(
                         layout,
                         splitDropZonePath,
@@ -128,7 +125,6 @@ const Container = () => {
             }
 
             // 3. Move + Create
-            debugger;
             const updatedLayout = handleMoveToDifferentParent(
                 layout,
                 splitDropZonePath,
@@ -158,16 +154,32 @@ const Container = () => {
     );
 
     const handleUpdateComponentData = () => {
-        debugger;
-
         let _components = { ...components };
         _components[selectedComponent.component_id].data = inputField;
         setComponents(_components);
     };
 
+    const handleLayoutSave = () => {
+        localStorage.removeItem("layout");
+        localStorage.removeItem("components");
+
+        let layoutStr = JSON.stringify(layout);
+        let componentsStr = JSON.stringify(components);
+
+        localStorage.setItem("layout", layoutStr);
+        localStorage.setItem("components", componentsStr);
+    };
+
+    const handleGetLayout = () => {
+        let layoutStr = localStorage.getItem("layout");
+        let componentsStr = localStorage.getItem("components");
+
+        setLayout(JSON.parse(layoutStr));
+        setComponents(JSON.parse(componentsStr));
+    };
+
     const handleRemoveFromLayput = useCallback(
         (item) => {
-            debugger;
             console.log(item);
 
             const splitItemPath = item.path.split("-");
@@ -209,99 +221,143 @@ const Container = () => {
     }
 
     return (
-        <div className="body container-fluid px-0">
+        <div className="container-fluid">
+            <div className="navbar border-bottom">
+                <small className="mx-2">React Dnd - Liferay Clone</small>
+                <button
+                    className="btn btn-sm btn-warning mx-2"
+                    data-bs-toggle="modal"
+                    data-bs-target="#preview"
+                >
+                    Preview
+                </button>
+            </div>
             <AppContext.Provider
                 value={{
                     selectedComponent,
                     handleSelectComponent,
                 }}
             >
-                <div className="pageContainer">
-                    <div className="page">
-                        {layout.map((row, index) => {
-                            const currentPath = `${index}`;
+                <div className="container-fluid px-0">
+                    <div className="row">
+                        <div className="col-sm-10">
+                            {layout.map((row, index) => {
+                                const currentPath = `${index}`;
 
-                            return (
-                                <React.Fragment key={row.id}>
-                                    <DropZone
-                                        data={{
-                                            path: currentPath,
-                                            childrenCount: layout.length,
-                                        }}
-                                        onDrop={handleDrop}
-                                    ></DropZone>
-                                    {renderRow(row, currentPath)}
-                                </React.Fragment>
-                            );
-                        })}
-                        <DropZone
-                            data={{
-                                path: `${layout.length}`,
-                                childrenCount: layout.length,
-                            }}
-                            onDrop={handleDrop}
-                            isLast
-                        ></DropZone>
-                    </div>
-                    <TrashDropZone
-                        layout={{
-                            layout,
-                        }}
-                        onDrop={handleDropToTrashBin}
-                    ></TrashDropZone>
-                </div>
-                <div className="sideBar">
-                    <center>
-                        <b>Widgets</b>
-                    </center>
-                    {Object.values(SIDEBAR_ITEMS).map((sideBarItem, index) => {
-                        return (
-                            <SideBarItem
-                                key={sideBarItem.id}
-                                data={sideBarItem}
+                                return (
+                                    <React.Fragment key={row.id}>
+                                        <DropZone
+                                            data={{
+                                                path: currentPath,
+                                                childrenCount: layout.length,
+                                            }}
+                                            onDrop={handleDrop}
+                                        ></DropZone>
+                                        {renderRow(row, currentPath)}
+                                    </React.Fragment>
+                                );
+                            })}
+                            <DropZone
+                                data={{
+                                    path: `${layout.length}`,
+                                    childrenCount: layout.length,
+                                }}
+                                onDrop={handleDrop}
+                                isLast
+                            ></DropZone>
+                            <TrashDropZone
+                                layout={{
+                                    layout,
+                                }}
+                                onDrop={handleDropToTrashBin}
+                            ></TrashDropZone>
+                        </div>
+                        <div className="col-sm-2">
+                            <center>
+                                <b>Widgets</b>
+                            </center>
+                            {Object.values(SIDEBAR_ITEMS).map(
+                                (sideBarItem, index) => {
+                                    return (
+                                        <SideBarItem
+                                            key={sideBarItem.id}
+                                            data={sideBarItem}
+                                        />
+                                    );
+                                }
+                            )}
+                            <label for="floatingInputValue">Service Key</label>
+                            <input
+                                type="text"
+                                className="form-control "
+                                name="serviceKey"
+                                placeholder="serviceKey"
+                                onChange={(e) => handleInputField(e)}
+                                value={inputField.serviceKey}
                             />
-                        );
-                    })}
-                    <div class="form-floating mb-3">
-                        <input
-                            type="text"
-                            name="serviceKey"
-                            placeholder="serviceKey"
-                            onChange={(e) => handleInputField(e)}
-                            value={inputField.serviceKey}
-                        />
-                        <label for="floatingInputValue">Service Key</label>
-                    </div>
-                    <div class="form-floating">
-                        <input
-                            type="text"
-                            name="parmas"
-                            placeholder="parmas"
-                            onChange={(e) => handleInputField(e)}
-                            value={inputField.parmas}
-                        />
-                        <label for="floatingPassword">Param</label>
-                    </div>
+                            <label for="floatingPassword">Param</label>
+                            <input
+                                type="text"
+                                name="parmas"
+                                className="form-control "
+                                placeholder="parmas"
+                                onChange={(e) => handleInputField(e)}
+                                value={inputField.parmas}
+                            />
 
-                    <button
-                        className="btn btn-sm btn-dark m-2"
-                        onClick={() => handleUpdateComponentData()}
-                    >
-                        Update
-                    </button>
-                    <button
-                        className="btn btn-sm btn-dark m-2"
-                        onClick={() =>
-                            handleRemoveFromLayput(selectedComponent)
-                        }
-                    >
-                        Delete
-                    </button>
-                    <code>
-                        <pre>{JSON.stringify(selectedComponent.data)}</pre>
-                    </code>
+                            <button
+                                className="btn btn-sm btn-dark m-2"
+                                onClick={() => handleUpdateComponentData()}
+                            >
+                                Update
+                            </button>
+                            <button
+                                className="btn btn-sm btn-dark m-2"
+                                onClick={() =>
+                                    handleRemoveFromLayput(selectedComponent)
+                                }
+                            >
+                                Delete
+                            </button>
+                            <button
+                                className="btn btn-sm btn-dark m-2"
+                                onClick={() => handleLayoutSave()}
+                            >
+                                Save
+                            </button>
+                            <button
+                                className="btn btn-sm btn-dark m-2"
+                                onClick={() => handleGetLayout()}
+                            >
+                                Get
+                            </button>
+                            <div>
+                                <code>
+                                    {JSON.stringify(
+                                        selectedComponent.data,
+                                        null,
+                                        2
+                                    )}
+                                </code>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </AppContext.Provider>
+
+            <div className="modal modal-xl fade" id="preview">
+                <div className="modal-dialog">
+                    <div className="modal-content">
+                        <div className="modal-header"></div>
+                        <div className="modal-body">
+                            <code>{JSON.stringify(layout)}</code>
+                            <br />
+                            {JSON.stringify(components)}
+                        </div>
+                        <div className="modal-footer"></div>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 };

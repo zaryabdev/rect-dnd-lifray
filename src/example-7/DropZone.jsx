@@ -79,7 +79,7 @@ const DropZone = ({ data, onDrop, isLast, className }) => {
         <div
             ref={dropRef}
             className={classNames(
-                "dropZone",
+                "drop-zone",
                 { active: isActive, isLast },
                 className
             )}

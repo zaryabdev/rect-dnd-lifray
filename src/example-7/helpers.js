@@ -143,7 +143,6 @@ export const handleMoveToDifferentParent = (
         type: ROW,
         id: `row-id:${uuidv4()}`,
     };
-    debugger;
     switch (splitDropZonePath.length) {
         case 1: {
             // moving column outside into new row made on the fly

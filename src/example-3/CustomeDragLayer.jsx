@@ -53,8 +53,6 @@ function CustomDragLayer(props) {
 }
 
 function getItemStyles(initialOffset, currentOffset, isSnapToGrid) {
-    debugger;
-
     if (!initialOffset || !currentOffset) {
         return {
             display: "none",

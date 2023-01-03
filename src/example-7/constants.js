@@ -11,7 +11,7 @@ export const SIDEBAR_ITEMS = [
         component_id: `component_id:${uuidv4()}`,
         type: SIDEBAR_ITEM,
         component: {
-            type: "container",
+            type: "linechart",
             data: {},
         },
     },
@@ -20,7 +20,7 @@ export const SIDEBAR_ITEMS = [
         component_id: `component_id:${uuidv4()}`,
         type: SIDEBAR_ITEM,
         component: {
-            type: "grid",
+            type: "multilinechart",
             data: {},
         },
     },
@@ -29,7 +29,16 @@ export const SIDEBAR_ITEMS = [
         component_id: `component_id:${uuidv4()}`,
         type: SIDEBAR_ITEM,
         component: {
-            type: "component",
+            type: "piechart",
+            data: {},
+        },
+    },
+    {
+        id: `component-db-id:${uuidv4()}`,
+        component_id: `component_id:${uuidv4()}`,
+        type: SIDEBAR_ITEM,
+        component: {
+            type: "stackedareachart",
             data: {},
         },
     },
