@@ -4,7 +4,7 @@ import SideBarItem from "./SideBarItem";
 import DropZone from "./DropZone";
 import TrashDropZone from "./TrashDropZone";
 import Row from "./Row";
-import initialData from "./initial-data";
+import { initialLayout, initialComponents } from "./initial-data";
 import {
     SIDEBAR_ITEMS,
     SIDEBAR_ITEM,
@@ -21,22 +21,21 @@ import {
 import "./styles.css";
 
 const Container = () => {
-    const initialLayout = initialData.layout;
-    const initialComponents = initialData.components;
+    // const initialLayout = initialData.layout;
+    // const initialComponents = initialData.components;
 
     const [layout, setLayout] = useState(initialLayout);
     const [components, setComponents] = useState(initialComponents);
 
     useEffect(() => {
-        console.log(`Current state of layout`);
-        console.log(layout);
-    }, [layout]);
+        console.log({ layout });
+        console.log({ components });
+    }, [layout, components]);
 
     const handleDrop = useCallback(
         (dropZone, item) => {
-            console.log("dropZone", dropZone);
-            console.log("item", item);
-            debugger;
+            console.log(`ITEM DROPPED`);
+            console.log({ item });
 
             const splitDropZonePath = dropZone.path.split("-");
             const pathToDropZone = splitDropZonePath.slice(0, -1).join("-");

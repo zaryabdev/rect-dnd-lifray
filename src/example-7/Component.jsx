@@ -36,7 +36,7 @@ const Component = ({ data, components, path }) => {
             className="component draggable"
         >
             <div>{data.id}</div>
-            <div>{component.content}</div>
+            <div>{component ? component.id : "NO COMPONENT FOUND"}</div>
         </div>
     );
 };

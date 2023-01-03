@@ -1,7 +1,48 @@
 import { COMPONENT, ROW, COLUMN } from "./constants";
 
-export const layout = [];
-export const components = {};
+export const initialLayout = [
+    // {
+    //     type: ROW,
+    //     id: "row1",
+    //     children: [
+    //         {
+    //             type: COLUMN,
+    //             id: "column2",
+    //             children: [
+    //                 {
+    //                     type: COMPONENT,
+    //                     id: "component1",
+    //                 },
+    //                 {
+    //                     type: COMPONENT,
+    //                     id: "component0",
+    //                 },
+    //                 {
+    //                     type: COMPONENT,
+    //                     id: "component2",
+    //                 },
+    //             ],
+    //         },
+    //     ],
+    // },
+];
+export const initialComponents = {
+    // component0: {
+    //     id: "component0",
+    //     type: "input",
+    //     content: "Some input",
+    // },
+    // component1: {
+    //     id: "component1",
+    //     type: "image",
+    //     content: "Some image",
+    // },
+    // component2: {
+    //     id: "component2",
+    //     type: "email",
+    //     content: "Some email",
+    // },
+};
 
 const initialData = {
     layout: [
