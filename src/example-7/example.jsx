@@ -165,6 +165,23 @@ const Container = () => {
         setComponents(_components);
     };
 
+    const handleRemoveFromLayput = useCallback(
+        (item) => {
+            debugger;
+            console.log(item);
+
+            const splitItemPath = item.path.split("-");
+            console.log({ layout });
+            const removedItemLayout = handleRemoveItemFromLayout(
+                layout,
+                splitItemPath
+            );
+            console.log({ removedItemLayout });
+            setLayout(removedItemLayout);
+        },
+        [layout]
+    );
+
     const handleInputField = (event) => {
         let name = event.target.name;
         let value = event.target.value;
@@ -271,6 +288,14 @@ const Container = () => {
                         onClick={() => handleUpdateComponentData()}
                     >
                         Update
+                    </button>
+                    <button
+                        className="btn btn-sm btn-dark m-2"
+                        onClick={() =>
+                            handleRemoveFromLayput(selectedComponent)
+                        }
+                    >
+                        Delete
                     </button>
                     <code>
                         <pre>{JSON.stringify(selectedComponent.data)}</pre>

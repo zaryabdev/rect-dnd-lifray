@@ -1,6 +1,7 @@
 import React, { useRef, useContext } from "react";
 import { useDrag } from "react-dnd";
 import { COMPONENT } from "./constants";
+import Wrapper from "./Wrapper";
 import AppContext from "./AppContext";
 const style = {
     border: "1px dashed black",
@@ -31,22 +32,24 @@ const Component = ({ componentData, components, path }) => {
     drag(ref);
 
     const component = components[componentData.component_id];
+    component.path = path;
 
     return (
-        <div
-            ref={ref}
-            style={{ ...style, opacity }}
-            className={`component draggable ${
-                context.selectedComponent.component_id ===
-                componentData.component_id
-                    ? "outlineBlue"
-                    : ""
-            } `}
-            onClick={() => context.handleSelectComponent(component)}
-        >
-            <div>{componentData.id}</div>
-            <div>{component ? "COMPONENT" : "NO COMPONENT FOUND"}</div>
-        </div>
+        <Wrapper>
+            <div
+                ref={ref}
+                style={{ ...style, opacity }}
+                className={`component draggable ${
+                    context.selectedComponent.component_id ===
+                    componentData.component_id
+                        ? "outlineBlue"
+                        : ""
+                } `}
+                onClick={() => context.handleSelectComponent(component)}
+            >
+                {/* <div>{componentData.}</div> */}
+            </div>
+        </Wrapper>
     );
 };
 
