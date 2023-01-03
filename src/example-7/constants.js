@@ -7,7 +7,7 @@ export const COMPONENT = "component";
 
 export const SIDEBAR_ITEMS = [
     {
-        id: `id:${uuidv4()}`,
+        id: `component-db-id:${uuidv4()}`,
         component_id: `component_id:${uuidv4()}`,
         type: SIDEBAR_ITEM,
         component: {
@@ -16,7 +16,7 @@ export const SIDEBAR_ITEMS = [
         },
     },
     {
-        id: `id:${uuidv4()}`,
+        id: `component-db-id:${uuidv4()}`,
         component_id: `component_id:${uuidv4()}`,
         type: SIDEBAR_ITEM,
         component: {
@@ -25,7 +25,7 @@ export const SIDEBAR_ITEMS = [
         },
     },
     {
-        id: `id:${uuidv4()}`,
+        id: `component-db-id:${uuidv4()}`,
         component_id: `component_id:${uuidv4()}`,
         type: SIDEBAR_ITEM,
         component: {

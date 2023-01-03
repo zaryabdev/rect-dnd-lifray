@@ -114,7 +114,7 @@ export const handleAddColumDataToRow = (layout) => {
     const layoutCopy = [...layout];
     const COLUMN_STRUCTURE = {
         type: COLUMN,
-        id: uuidv4(),
+        id: `column-id:${uuidv4()}`,
         children: [],
     };
 
@@ -135,15 +135,15 @@ export const handleMoveToDifferentParent = (
     let newLayoutStructure;
     const COLUMN_STRUCTURE = {
         type: COLUMN,
-        id: uuidv4(),
+        id: `column-id:${uuidv4()}`,
         children: [item],
     };
 
     const ROW_STRUCTURE = {
         type: ROW,
-        id: uuidv4(),
+        id: `row-id:${uuidv4()}`,
     };
-
+    debugger;
     switch (splitDropZonePath.length) {
         case 1: {
             // moving column outside into new row made on the fly
@@ -199,15 +199,21 @@ export const handleMoveSidebarComponentIntoParent = (
         case 1: {
             newLayoutStructure = {
                 type: ROW,
-                id: uuidv4(),
-                children: [{ type: COLUMN, id: uuidv4(), children: [item] }],
+                id: `row-id:${uuidv4()}`,
+                children: [
+                    {
+                        type: COLUMN,
+                        id: `column-id:${uuidv4()}`,
+                        children: [item],
+                    },
+                ],
             };
             break;
         }
         case 2: {
             newLayoutStructure = {
                 type: COLUMN,
-                id: uuidv4(),
+                id: `column-id:${uuidv4()}`,
                 children: [item],
             };
             break;

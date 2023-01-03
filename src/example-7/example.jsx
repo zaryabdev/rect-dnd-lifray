@@ -36,6 +36,7 @@ const Container = () => {
         (dropZone, item) => {
             console.log(`ITEM DROPPED`);
             console.log({ item });
+            debugger;
 
             const splitDropZonePath = dropZone.path.split("-");
             const pathToDropZone = splitDropZonePath.slice(0, -1).join("-");
@@ -44,6 +45,10 @@ const Container = () => {
                 id: item.id,
                 type: item.type,
             };
+
+            if (item.type === COMPONENT) {
+                newLayoutItem.component_id = item.component_id;
+            }
 
             if (item.type === COLUMN) {
                 newLayoutItem.children = item.children;
@@ -54,7 +59,7 @@ const Container = () => {
                 // 1. Move side bar item into page
 
                 const newComponent = {
-                    id: `id:${uuidv4()}`,
+                    id: `component-db-id:${uuidv4()}`,
                     component_id: `component_id:${uuidv4()}`,
                     ...item.component,
                 };
@@ -102,6 +107,7 @@ const Container = () => {
                 } else {
                     // 2.b. OR move different parent
                     // TODO FIX columns. item includes children
+                    debugger;
                     const updatedLayout = handleMoveToDifferentParent(
                         layout,
                         splitDropZonePath,
@@ -117,6 +123,7 @@ const Container = () => {
             }
 
             // 3. Move + Create
+            debugger;
             const updatedLayout = handleMoveToDifferentParent(
                 layout,
                 splitDropZonePath,

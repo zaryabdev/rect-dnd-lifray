@@ -17,7 +17,7 @@ const Component = ({ componentData, components, path }) => {
     const [{ isDragging }, drag] = useDrag({
         item: {
             id: componentData.id,
-            component_id: componentData.id,
+            component_id: componentData.component_id,
             type: COMPONENT,
             path: path,
         },
@@ -39,7 +39,7 @@ const Component = ({ componentData, components, path }) => {
             className="component draggable"
         >
             <div>{componentData.id}</div>
-            <div>{component ? component.id : "NO COMPONENT FOUND"}</div>
+            <div>{component ? "COMPONENT" : "NO COMPONENT FOUND"}</div>
         </div>
     );
 };
