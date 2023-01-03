@@ -9,7 +9,10 @@ const style = {
     backgroundColor: "#495464",
     cursor: "move",
 };
-
+import LineChart from "./components/LineChart";
+import MultiLineChart from "./components/MultilineChart";
+import StackedAreaChart from "./components/StackedAreaChart";
+import PieChart from "./components/PieChart";
 const Component = ({ componentData, components, path }) => {
     console.log({ componentData, components });
     const context = useContext(AppContext);
@@ -48,6 +51,9 @@ const Component = ({ componentData, components, path }) => {
                 onClick={() => context.handleSelectComponent(component)}
             >
                 {/* <div>{componentData.}</div> */}
+                {/* <MultiLineChart></MultiLineChart>
+                 */}
+                {/* <PieChart /> */}
             </div>
         </Wrapper>
     );
