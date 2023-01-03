@@ -5,7 +5,12 @@ const style = {};
 const Wrapper = ({ children }) => {
     const context = useContext(AppContext);
 
-    return <div className="border border-warning border-2"> {children}</div>;
+    return (
+        <div className="border border-warning rounded border-2">
+            {" "}
+            {children}
+        </div>
+    );
 };
 
 export default Wrapper;

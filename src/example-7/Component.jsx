@@ -4,15 +4,23 @@ import { COMPONENT } from "./constants";
 import Wrapper from "./Wrapper";
 import AppContext from "./AppContext";
 const style = {
-    border: "1px dashed black",
+    border: "1px dashed lightgray",
     padding: "0.5rem 1rem",
-    backgroundColor: "#495464",
+    backgroundColor: "#F7F7F7",
     cursor: "move",
 };
 import LineChart from "./components/LineChart";
 import MultiLineChart from "./components/MultilineChart";
 import StackedAreaChart from "./components/StackedAreaChart";
 import PieChart from "./components/PieChart";
+
+const componentList = {
+    linechart: LineChart,
+    multilinechart: MultiLineChart,
+    piechart: PieChart,
+    stackedareachart: StackedAreaChart,
+};
+
 const Component = ({ componentData, components, path }) => {
     console.log({ componentData, components });
     const context = useContext(AppContext);
@@ -33,7 +41,7 @@ const Component = ({ componentData, components, path }) => {
 
     const opacity = isDragging ? 0 : 1;
     drag(ref);
-
+    debugger;
     const component = components[componentData.component_id];
     component.path = path;
 
@@ -50,10 +58,7 @@ const Component = ({ componentData, components, path }) => {
                 } `}
                 onClick={() => context.handleSelectComponent(component)}
             >
-                {/* <div>{componentData.}</div> */}
-                {/* <MultiLineChart></MultiLineChart>
-                 */}
-                {/* <PieChart /> */}
+                {context.CreateComponent(component, componentList)}
             </div>
         </Wrapper>
     );

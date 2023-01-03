@@ -57,13 +57,13 @@ const data = [
 const LineChart = () => {
     return (
         <_LineChart
-            width={500}
+            width={300}
             height={300}
             data={data}
             margin={{
                 top: 5,
-                right: 30,
-                left: 20,
+                right: 5,
+                left: 5,
                 bottom: 5,
             }}
         >

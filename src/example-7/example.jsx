@@ -21,6 +21,8 @@ import {
 import AppContext from "./AppContext";
 import "./styles.css";
 
+import RenderPreview from "./RenderPreview.jsx";
+
 const Container = () => {
     // const initialLayout = initialData.layout;
     // const initialComponents = initialData.components;
@@ -236,6 +238,7 @@ const Container = () => {
                 value={{
                     selectedComponent,
                     handleSelectComponent,
+                    CreateComponent,
                 }}
             >
                 <div className="container-fluid px-0">
@@ -350,9 +353,10 @@ const Container = () => {
                     <div className="modal-content">
                         <div className="modal-header"></div>
                         <div className="modal-body">
-                            <code>{JSON.stringify(layout)}</code>
-                            <br />
-                            {JSON.stringify(components)}
+                            <RenderPreview
+                                layout={layout}
+                                components={components}
+                            ></RenderPreview>
                         </div>
                         <div className="modal-footer"></div>
                     </div>
@@ -362,4 +366,33 @@ const Container = () => {
     );
 };
 
+function CreateComponent(component, componentList) {
+    debugger;
+    if (typeof componentList[component.type] !== "undefined") {
+        return React.createElement(componentList[component.type], {
+            key: component.id,
+            component,
+        });
+    }
+    return React.createElement(
+        () => (
+            <div
+                style={{ minHeight: "90vh" }}
+                className="d-flex align-items-center justify-content-center vh-100"
+            >
+                <div className="text-center">
+                    <p className="fs-3">
+                        {" "}
+                        The Component for{" "}
+                        <span className="text-danger">
+                            {component.component_id}
+                        </span>{" "}
+                        has not been created yet.
+                    </p>
+                </div>
+            </div>
+        ),
+        { key: component.id }
+    );
+}
 export default Container;
