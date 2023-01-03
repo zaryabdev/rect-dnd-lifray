@@ -4,14 +4,15 @@ import { ROW } from "./constants";
 import DropZone from "./DropZone";
 import Column from "./Column";
 
-const Row = ({ data, components, handleDrop, path }) => {
+const Row = ({ rowData, components, handleDrop, path }) => {
+    console.log({ rowData, components });
     const ref = useRef(null);
 
     const [{ isDragging }, dragRef] = useDrag({
         item: {
             type: ROW,
-            id: data.id,
-            children: data.children,
+            id: rowData.id,
+            children: rowData.children,
             path,
         },
         type: ROW,
@@ -28,7 +29,7 @@ const Row = ({ data, components, handleDrop, path }) => {
         return (
             <Column
                 key={column.id}
-                data={column}
+                columnData={column}
                 components={components}
                 handleDrop={handleDrop}
                 path={currentPath}
@@ -38,9 +39,9 @@ const Row = ({ data, components, handleDrop, path }) => {
 
     return (
         <div ref={ref} style={{ opacity }} className="base draggable row">
-            <small> ID : {data.id} </small>
+            <small> ID : {rowData.id} </small>
             <div className="columns">
-                {data.children.map((column, index) => {
+                {rowData.children.map((column, index) => {
                     const currentPath = `${path}-${index}`;
 
                     return (
@@ -48,7 +49,7 @@ const Row = ({ data, components, handleDrop, path }) => {
                             <DropZone
                                 data={{
                                     path: currentPath,
-                                    childrenCount: data.children.length,
+                                    childrenCount: rowData.children.length,
                                 }}
                                 onDrop={handleDrop}
                                 className="horizontalDrag"
@@ -59,7 +60,7 @@ const Row = ({ data, components, handleDrop, path }) => {
                 })}
                 <DropZone
                     data={{
-                        path: `${path}-${data.children.length}`,
+                        path: `${path}-${rowData.children.length}`,
                     }}
                     onDrop={handleDrop}
                     className="horizontalDrag"

@@ -1,8 +1,7 @@
 import { useDrag } from "react-dnd";
 
 const SideBarItem = ({ data }) => {
-    console.log(`INSIDE SideBarItem`);
-    console.log(data);
+    console.log({ data });
 
     const [{ opacity }, dragRef] = useDrag({
         item: data,

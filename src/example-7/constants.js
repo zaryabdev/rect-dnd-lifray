@@ -7,30 +7,30 @@ export const COMPONENT = "component";
 
 export const SIDEBAR_ITEMS = [
     {
-        id: uuidv4(),
-        component_id: uuidv4(),
+        id: `id:${uuidv4()}`,
+        component_id: `component_id:${uuidv4()}`,
         type: SIDEBAR_ITEM,
         component: {
             type: "container",
-            content: "I AM A CONTAINER",
+            data: {},
         },
     },
     {
-        id: uuidv4(),
-        component_id: uuidv4(),
+        id: `id:${uuidv4()}`,
+        component_id: `component_id:${uuidv4()}`,
         type: SIDEBAR_ITEM,
         component: {
             type: "grid",
-            content: "I AM A GRID",
+            data: {},
         },
     },
     {
-        id: uuidv4(),
-        component_id: uuidv4(),
+        id: `id:${uuidv4()}`,
+        component_id: `component_id:${uuidv4()}`,
         type: SIDEBAR_ITEM,
         component: {
             type: "component",
-            content: " 🫂 I AM A COMPONENT",
+            data: {},
         },
     },
 ];

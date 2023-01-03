@@ -5,14 +5,16 @@ import DropZone from "./DropZone";
 import Component from "./Component";
 
 const style = {};
-const Column = ({ data, components, handleDrop, path }) => {
+const Column = ({ columnData, components, handleDrop, path }) => {
+    console.log({ columnData, components });
+
     const ref = useRef(null);
 
     const [{ isDragging }, drag] = useDrag({
         item: {
             type: COLUMN,
-            id: data.id,
-            children: data.children,
+            id: columnData.id,
+            children: columnData.children,
             path,
         },
         type: COLUMN,
@@ -28,7 +30,7 @@ const Column = ({ data, components, handleDrop, path }) => {
         return (
             <Component
                 key={component.id}
-                data={component}
+                componentData={component}
                 components={components}
                 path={currentPath}
             />
@@ -41,8 +43,8 @@ const Column = ({ data, components, handleDrop, path }) => {
             style={{ ...style, opacity }}
             className="base draggable column"
         >
-            {data.id}
-            {data.children.map((component, index) => {
+            CID: {columnData.id}
+            {columnData.children.map((component, index) => {
                 const currentPath = `${path}-${index}`;
 
                 return (
@@ -50,7 +52,7 @@ const Column = ({ data, components, handleDrop, path }) => {
                         <DropZone
                             data={{
                                 path: currentPath,
-                                childrenCount: data.children.length,
+                                childrenCount: columnData.children.length,
                             }}
                             onDrop={handleDrop}
                         />
@@ -60,8 +62,8 @@ const Column = ({ data, components, handleDrop, path }) => {
             })}
             <DropZone
                 data={{
-                    path: `${path}-${data.children.length}`,
-                    childrenCount: data.children.length,
+                    path: `${path}-${columnData.children.length}`,
+                    childrenCount: columnData.children.length,
                 }}
                 onDrop={handleDrop}
                 isLast

@@ -40,13 +40,13 @@ const Container = () => {
             const splitDropZonePath = dropZone.path.split("-");
             const pathToDropZone = splitDropZonePath.slice(0, -1).join("-");
 
-            const newItem = {
+            const newLayoutItem = {
                 id: item.id,
                 type: item.type,
             };
 
             if (item.type === COLUMN) {
-                newItem.children = item.children;
+                newLayoutItem.children = item.children;
             }
 
             // TODO: debug this code block
@@ -54,24 +54,26 @@ const Container = () => {
                 // 1. Move side bar item into page
 
                 const newComponent = {
-                    id: uuidv4(),
+                    id: `id:${uuidv4()}`,
+                    component_id: `component_id:${uuidv4()}`,
                     ...item.component,
                 };
 
-                const newItem = {
+                const newLayoutItem = {
                     id: newComponent.id,
+                    component_id: newComponent.component_id,
                     type: COMPONENT,
                 };
 
                 setComponents({
                     ...components,
-                    [newComponent.id]: newComponent,
+                    [newComponent.component_id]: newComponent,
                 });
 
                 const updatedLayout = handleMoveSidebarComponentIntoParent(
                     layout,
                     splitDropZonePath,
-                    newItem
+                    newLayoutItem
                 );
 
                 console.log({ updatedLayout });
@@ -81,7 +83,7 @@ const Container = () => {
 
             // move down here since sidebar items dont have path
 
-            const splitItemPath = item.path.split("-");
+            const splitItemPath = item.path ? item.path.split("-") : [];
             const pathToItem = splitItemPath.slice(0, -1).join("-");
 
             // 2. pure move ( no create)
@@ -104,7 +106,7 @@ const Container = () => {
                         layout,
                         splitDropZonePath,
                         splitItemPath,
-                        newItem
+                        newLayoutItem
                     );
 
                     console.log({ updatedLayout });
@@ -119,7 +121,7 @@ const Container = () => {
                 layout,
                 splitDropZonePath,
                 splitItemPath,
-                newItem
+                newLayoutItem
             );
 
             console.log({ updatedLayout });
@@ -147,7 +149,7 @@ const Container = () => {
         return (
             <Row
                 key={row.id}
-                data={row}
+                rowData={row}
                 handleDrop={handleDrop}
                 path={currentPath}
                 components={components}

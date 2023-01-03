@@ -15,15 +15,18 @@ Sample data structure of layout
                     children: [
                         {
                             type: COMPONENT,
-                            id: "component1",
+                            id: "component0",
+                            componnet_id : "component0",
                         },
                         {
                             type: COMPONENT,
-                            id: "component0",
+                            id: "component1",
+                            componnet_id : "component1",
                         },
                         {
                             type: COMPONENT,
                             id: "component2",
+                            componnet_id : "component2",
                         },
                     ],
                 },
@@ -38,16 +41,19 @@ Sample data structure of components
     {
         component0: {
             id: "component0",
+            componnet_id : "component0",
             type: "input",
             content: "Some input",
         },
         component1: {
             id: "component1",
+            componnet_id : "component1",
             type: "image",
             content: "Some image",
         },
         component2: {
             id: "component2",
+            componnet_id : "component2",
             type: "email",
             content: "Some email",
         },
