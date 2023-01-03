@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback, useEffect, useContext } from "react";
 import { v4 as uuidv4 } from "uuid";
 import SideBarItem from "./SideBarItem";
 import DropZone from "./DropZone";
@@ -18,15 +18,19 @@ import {
     handleMoveSidebarComponentIntoParent,
     handleRemoveItemFromLayout,
 } from "./helpers";
+import AppContext from "./AppContext";
 import "./styles.css";
 
 const Container = () => {
     // const initialLayout = initialData.layout;
     // const initialComponents = initialData.components;
-
     const [layout, setLayout] = useState(initialLayout);
     const [components, setComponents] = useState(initialComponents);
 
+    const [selectedComponent, setSelectedComponent] = useState({});
+    const [inputField, setInputField] = useState({
+        sample: "",
+    });
     useEffect(() => {
         console.log({ layout });
         console.log({ components });
@@ -152,6 +156,20 @@ const Container = () => {
         [layout]
     );
 
+    const handleInputField = (event) => {
+        let name = event.target.name;
+        let value = event.target.value;
+
+        setInputField((prev) => ({
+            ...prev,
+            [name]: value,
+        }));
+    };
+
+    const handleSelectComponent = (component) => {
+        setSelectedComponent(component);
+    };
+
     function renderRow(row, currentPath) {
         return (
             <Row
@@ -166,50 +184,73 @@ const Container = () => {
 
     return (
         <div className="body">
-            <div className="pageContainer">
-                <div className="page">
-                    {layout.map((row, index) => {
-                        const currentPath = `${index}`;
+            <AppContext.Provider
+                value={{
+                    selectedComponent,
+                    handleSelectComponent,
+                }}
+            >
+                <div className="pageContainer">
+                    <div className="page">
+                        {layout.map((row, index) => {
+                            const currentPath = `${index}`;
 
+                            return (
+                                <React.Fragment key={row.id}>
+                                    <DropZone
+                                        data={{
+                                            path: currentPath,
+                                            childrenCount: layout.length,
+                                        }}
+                                        onDrop={handleDrop}
+                                    ></DropZone>
+                                    {renderRow(row, currentPath)}
+                                </React.Fragment>
+                            );
+                        })}
+                        <DropZone
+                            data={{
+                                path: `${layout.length}`,
+                                childrenCount: layout.length,
+                            }}
+                            onDrop={handleDrop}
+                            isLast
+                        ></DropZone>
+                    </div>
+                    <TrashDropZone
+                        layout={{
+                            layout,
+                        }}
+                        onDrop={handleDropToTrashBin}
+                    ></TrashDropZone>
+                </div>
+                <div className="sideBar">
+                    <center>
+                        <b>Widgets</b>
+                    </center>
+                    {Object.values(SIDEBAR_ITEMS).map((sideBarItem, index) => {
                         return (
-                            <React.Fragment key={row.id}>
-                                <DropZone
-                                    data={{
-                                        path: currentPath,
-                                        childrenCount: layout.length,
-                                    }}
-                                    onDrop={handleDrop}
-                                ></DropZone>
-                                {renderRow(row, currentPath)}
-                            </React.Fragment>
+                            <SideBarItem
+                                key={sideBarItem.id}
+                                data={sideBarItem}
+                            />
                         );
                     })}
-                    <DropZone
-                        data={{
-                            path: `${layout.length}`,
-                            childrenCount: layout.length,
-                        }}
-                        onDrop={handleDrop}
-                        isLast
-                    ></DropZone>
+                    <form class="form-floating">
+                        <input
+                            type="email"
+                            class="form-control"
+                            id="floatingInputValue"
+                            placeholder="name@example.com"
+                            value="test@example.com"
+                        />
+                        <label for="floatingInputValue">Input with value</label>
+                    </form>
+                    <code>
+                        <pre>{JSON.stringify(selectedComponent.data)}</pre>
+                    </code>
                 </div>
-                <TrashDropZone
-                    layout={{
-                        layout,
-                    }}
-                    onDrop={handleDropToTrashBin}
-                ></TrashDropZone>
-            </div>
-            <div className="sideBar">
-                <center>
-                    <b>Widgets</b>
-                </center>
-                {Object.values(SIDEBAR_ITEMS).map((sideBarItem, index) => {
-                    return (
-                        <SideBarItem key={sideBarItem.id} data={sideBarItem} />
-                    );
-                })}
-            </div>
+            </AppContext.Provider>
         </div>
     );
 };

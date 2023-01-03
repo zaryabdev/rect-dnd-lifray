@@ -1,7 +1,7 @@
-import React, { useRef } from "react";
+import React, { useRef, useContext } from "react";
 import { useDrag } from "react-dnd";
 import { COMPONENT } from "./constants";
-
+import AppContext from "./AppContext";
 const style = {
     border: "1px dashed black",
     padding: "0.5rem 1rem",
@@ -11,7 +11,7 @@ const style = {
 
 const Component = ({ componentData, components, path }) => {
     console.log({ componentData, components });
-
+    const context = useContext(AppContext);
     const ref = useRef(null);
 
     const [{ isDragging }, drag] = useDrag({
@@ -37,6 +37,7 @@ const Component = ({ componentData, components, path }) => {
             ref={ref}
             style={{ ...style, opacity }}
             className="component draggable"
+            onClick={() => context.handleSelectComponent(component)}
         >
             <div>{componentData.id}</div>
             <div>{component ? "COMPONENT" : "NO COMPONENT FOUND"}</div>
