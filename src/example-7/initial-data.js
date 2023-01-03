@@ -1,5 +1,8 @@
 import { COMPONENT, ROW, COLUMN } from "./constants";
 
+export const layout = [];
+export const components = {};
+
 const initialData = {
     layout: [
         // {

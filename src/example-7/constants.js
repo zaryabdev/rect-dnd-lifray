@@ -7,7 +7,8 @@ export const COMPONENT = "component";
 
 export const SIDEBAR_ITEMS = [
     {
-        id: uuidv4(),
+        id: "new",
+        component_id: uuidv4(),
         type: SIDEBAR_ITEM,
         component: {
             type: "container",
@@ -15,16 +16,16 @@ export const SIDEBAR_ITEMS = [
         },
     },
     {
-        id: uuidv4(),
-        type: SIDEBAR_ITEM,
+        id: "new",
+        component_id: uuidv4(),
         component: {
             type: "grid",
             content: "I AM A GRID",
         },
     },
     {
-        id: uuidv4(),
-        type: SIDEBAR_ITEM,
+        id: "new",
+        component_id: uuidv4(),
         component: {
             type: "component",
             content: " 🫂 I AM A COMPONENT",
