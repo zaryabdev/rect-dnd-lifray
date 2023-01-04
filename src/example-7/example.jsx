@@ -31,19 +31,16 @@ const Container = () => {
     const [components, setComponents] = useState(initialComponents);
 
     const [selectedComponent, setSelectedComponent] = useState({});
-    const [inputField, setInputField] = useState({
-        serviceKey: "",
-        parmas: "",
-    });
-    useEffect(() => {
-        console.log({ layout });
-        console.log({ components });
-    }, [layout, components]);
+
+    // useEffect(() => {
+    //     console.log({ layout });
+    //     console.log({ components });
+    // }, [layout, components]);
 
     const handleDrop = useCallback(
         (dropZone, item) => {
-            console.log(`ITEM DROPPED`);
-            console.log({ item });
+            // console.log(`ITEM DROPPED`);
+            // console.log({ item });
             const splitDropZonePath = dropZone.path.split("-");
             const pathToDropZone = splitDropZonePath.slice(0, -1).join("-");
 
@@ -87,7 +84,7 @@ const Container = () => {
                     newLayoutItem
                 );
 
-                console.log({ updatedLayout });
+                // console.log({ updatedLayout });
 
                 setLayout(updatedLayout);
             }
@@ -106,7 +103,7 @@ const Container = () => {
                         splitDropZonePath,
                         splitItemPath
                     );
-                    console.log({ updatedLayput });
+                    // console.log({ updatedLayput });
 
                     setLayout(updatedLayput);
                     return;
@@ -120,7 +117,7 @@ const Container = () => {
                         newLayoutItem
                     );
 
-                    console.log({ updatedLayout });
+                    // console.log({ updatedLayout });
 
                     setLayout(updatedLayout);
                     return;
@@ -135,7 +132,7 @@ const Container = () => {
                 newLayoutItem
             );
 
-            console.log({ updatedLayout });
+            // console.log({ updatedLayout });
 
             setLayout(updatedLayout);
         },
@@ -155,12 +152,6 @@ const Container = () => {
         },
         [layout]
     );
-
-    const handleUpdateComponentData = () => {
-        let _components = { ...components };
-        _components[selectedComponent.component_id].data = inputField;
-        setComponents(_components);
-    };
 
     const handleLayoutSave = () => {
         localStorage.removeItem("layout");
@@ -183,7 +174,7 @@ const Container = () => {
 
     const handleRemoveFromLayput = useCallback(
         (item) => {
-            console.log(item);
+            // console.log(item);
 
             const splitItemPath = item.path.split("-");
             console.log({ layout });
@@ -191,21 +182,11 @@ const Container = () => {
                 layout,
                 splitItemPath
             );
-            console.log({ removedItemLayout });
+            // console.log({ removedItemLayout });
             setLayout(removedItemLayout);
         },
         [layout]
     );
-
-    const handleInputField = (event) => {
-        let name = event.target.name;
-        let value = event.target.value;
-
-        setInputField((prev) => ({
-            ...prev,
-            [name]: value,
-        }));
-    };
 
     const handleSelectComponent = (component) => {
         setSelectedComponent(component);
@@ -292,31 +273,7 @@ const Container = () => {
                                     );
                                 }
                             )}
-                            <label for="floatingInputValue">Service Key</label>
-                            <input
-                                type="text"
-                                className="form-control "
-                                name="serviceKey"
-                                placeholder="serviceKey"
-                                onChange={(e) => handleInputField(e)}
-                                value={inputField.serviceKey}
-                            />
-                            <label for="floatingPassword">Param</label>
-                            <input
-                                type="text"
-                                name="parmas"
-                                className="form-control "
-                                placeholder="parmas"
-                                onChange={(e) => handleInputField(e)}
-                                value={inputField.parmas}
-                            />
 
-                            <button
-                                className="btn btn-sm btn-dark m-2"
-                                onClick={() => handleUpdateComponentData()}
-                            >
-                                Update
-                            </button>
                             <button
                                 className="btn btn-sm btn-dark m-2"
                                 onClick={() =>
@@ -358,18 +315,18 @@ const Container = () => {
                             <div className="d-flex vw-100 flex-row justify-content-between align-items-center">
                                 <div className="ps-2">Design Preview</div>
                                 <div className="align-self-center pe-2">
-                                    <div class="align-self-center btn-group btn-group-sm">
+                                    <div className="align-self-center btn-group btn-group-sm">
                                         <button
                                             type="button"
-                                            class="btn btn-outline-dark fa-solid fa-mobile-screen-button"
+                                            className="btn btn-outline-dark fa-solid fa-mobile-screen-button"
                                         ></button>
                                         <button
                                             type="button"
-                                            class="btn btn-outline-dark fa-solid fa-display"
+                                            className="btn btn-outline-dark fa-solid fa-display"
                                         ></button>
                                         <button
                                             type="button"
-                                            class="btn btn-outline-dark fa-solid fa-tablet-screen-button"
+                                            className="btn btn-outline-dark fa-solid fa-tablet-screen-button"
                                         ></button>
                                     </div>
                                 </div>

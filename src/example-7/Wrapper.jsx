@@ -3,10 +3,6 @@ import AppContext from "./AppContext";
 const style = {};
 
 const Wrapper = ({ component, isSelected, children }) => {
-    console.log(`INSIDE WRAPPER`);
-    console.log(component);
-
-    const context = useContext(AppContext);
     const [showConfig, setShowConfig] = useState(false);
 
     useEffect(() => {
@@ -14,10 +10,6 @@ const Wrapper = ({ component, isSelected, children }) => {
             setShowConfig(true);
         } else {
             setShowConfig(false);
-        }
-        if (context) {
-            const components = context ? context.components : {};
-            console.log({ component, components });
         }
     }, [isSelected]);
 
@@ -32,7 +24,6 @@ const Wrapper = ({ component, isSelected, children }) => {
                         <div className="modal-body">
                             <Settings component={component} />
                         </div>
-                        <div className="modal-footer"></div>
                     </div>
                 </div>
             </div>
@@ -41,7 +32,6 @@ const Wrapper = ({ component, isSelected, children }) => {
                     <div className="modal-content">
                         <div className="modal-header">Authorization</div>
                         <div className="modal-body"></div>
-                        <div className="modal-footer"></div>
                     </div>
                 </div>
             </div>
@@ -49,10 +39,73 @@ const Wrapper = ({ component, isSelected, children }) => {
     );
 };
 
-function Settings({ component }) {
+function Settings() {
+    const context = useContext(AppContext);
+    const [currentComponent, setCurrentComponent] = useState({});
+    const [propsToSend, setPropsToSend] = useState({});
+    const [inputField, setInputField] = useState({
+        title: "",
+        serviceKey: "",
+    });
+    useEffect(() => {
+        if (context) {
+            setCurrentComponent(context.selectedComponent);
+        }
+    }, [context]);
+
+    const handleUpdateComponentData = () => {
+        let _components = { ...context.components };
+        _components[currentComponent.component_id].data = inputField;
+        context.setComponents(_components);
+    };
+
+    const handleInputField = (event) => {
+        let name = event.target.name;
+        let value = event.target.value;
+
+        setInputField((prev) => ({
+            ...prev,
+            [name]: value,
+        }));
+    };
+
     return (
-        <div>
-            <code>{JSON.stringify(component)}</code>
+        <div className="container-fluid">
+            <div className="row">
+                <div className="col-sm-6">
+                    <div className="mb-3">
+                        <label className="form-label">Title</label>
+                        <input
+                            type="text"
+                            className="form-control"
+                            name="title"
+                            onChange={(e) => handleInputField(e)}
+                            value={inputField.title}
+                        />
+                    </div>
+                </div>
+                <div className="col-sm-6">
+                    <div className="mb-3">
+                        <label className="form-label">Service Key</label>
+                        <input
+                            type="text"
+                            className="form-control"
+                            name="serviceKey"
+                            onChange={(e) => handleInputField(e)}
+                            value={inputField.serviceKey}
+                        />
+                    </div>
+                </div>
+            </div>
+            <div className="d-flex justify-content-end align-items-center">
+                <button
+                    className="btn btn-sm btn-primary align-self-center"
+                    onClick={() => handleUpdateComponentData()}
+                >
+                    Save
+                </button>
+            </div>
+            <code>{JSON.stringify(currentComponent)}</code>
         </div>
     );
 }

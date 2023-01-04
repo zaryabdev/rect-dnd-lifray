@@ -9,6 +9,7 @@ const style = {
     backgroundColor: "#F7F7F7",
     cursor: "move",
 };
+
 import LineChart from "./components/LineChart";
 import MultiLineChart from "./components/MultilineChart";
 import StackedAreaChart from "./components/StackedAreaChart";

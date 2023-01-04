@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
     LineChart as _LineChart,
     Line,
@@ -9,7 +9,7 @@ import {
     Legend,
 } from "recharts";
 
-const data = [
+const data1 = [
     {
         name: "Page A",
         uv: 4000,
@@ -28,6 +28,9 @@ const data = [
         pv: 9800,
         amt: 2290,
     },
+];
+
+const data2 = [
     {
         name: "Page D",
         uv: 2780,
@@ -54,32 +57,53 @@ const data = [
     },
 ];
 
-const LineChart = () => {
+const LineChart = (props) => {
+    const [obj, setObj] = useState({});
+    const [chartData, setChartData] = useState([]);
+    useEffect(() => {
+        if (props && props.component && props.component.data) {
+            setObj(props.component.data);
+
+            if (props.component.data.serviceKey === "one") {
+                setChartData(data1);
+            }
+
+            if (props.component.data.serviceKey === "two") {
+                setChartData(data2);
+            }
+        }
+    }, [props]);
+
     return (
-        <_LineChart
-            width={300}
-            height={300}
-            data={data}
-            margin={{
-                top: 5,
-                right: 5,
-                left: 5,
-                bottom: 5,
-            }}
-        >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Line
-                type="monotone"
-                dataKey="pv"
-                stroke="#8884d8"
-                activeDot={{ r: 8 }}
-            />
-            <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
-        </_LineChart>
+        <React.Fragment>
+            <_LineChart
+                width={300}
+                height={300}
+                data={chartData}
+                margin={{
+                    top: 5,
+                    right: 5,
+                    left: 5,
+                    bottom: 5,
+                }}
+            >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Line
+                    type="monotone"
+                    dataKey="pv"
+                    stroke="#8884d8"
+                    activeDot={{ r: 8 }}
+                />
+                <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
+            </_LineChart>
+            Title : {obj.title ? obj.title : ""}
+            <br />
+            <code>{JSON.stringify(obj)}</code>
+        </React.Fragment>
     );
 };
 
