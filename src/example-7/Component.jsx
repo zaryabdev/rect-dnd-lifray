@@ -4,8 +4,8 @@ import { COMPONENT } from "./constants";
 import Wrapper from "./Wrapper";
 import AppContext from "./AppContext";
 const style = {
-    border: "1px dashed lightgray",
-    padding: "0.5rem 1rem",
+    // border: "1px dashed lightgray",
+    // padding: "0.5rem 1rem",
     backgroundColor: "#F7F7F7",
     cursor: "move",
 };
@@ -25,7 +25,6 @@ const Component = ({ componentData, components, path }) => {
     console.log({ componentData, components });
     const context = useContext(AppContext);
     const ref = useRef(null);
-
     const [{ isDragging }, drag] = useDrag({
         item: {
             id: componentData.id,
@@ -41,20 +40,18 @@ const Component = ({ componentData, components, path }) => {
 
     const opacity = isDragging ? 0 : 1;
     drag(ref);
-    debugger;
     const component = components[componentData.component_id];
     component.path = path;
+    const isSelected =
+        context.selectedComponent.component_id === componentData.component_id;
 
     return (
-        <Wrapper>
+        <Wrapper component={component} isSelected={isSelected}>
             <div
                 ref={ref}
                 style={{ ...style, opacity }}
                 className={`component draggable ${
-                    context.selectedComponent.component_id ===
-                    componentData.component_id
-                        ? "outlineBlue"
-                        : ""
+                    isSelected ? "outlineBlue" : ""
                 } `}
                 onClick={() => context.handleSelectComponent(component)}
             >

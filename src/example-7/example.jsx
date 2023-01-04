@@ -20,6 +20,7 @@ import {
 } from "./helpers";
 import AppContext from "./AppContext";
 import "./styles.css";
+import "./cursor.css";
 
 import RenderPreview from "./RenderPreview.jsx";
 
@@ -238,6 +239,8 @@ const Container = () => {
                 value={{
                     selectedComponent,
                     handleSelectComponent,
+                    components,
+                    setComponents,
                     CreateComponent,
                 }}
             >
@@ -349,9 +352,9 @@ const Container = () => {
             </AppContext.Provider>
 
             <div className="modal modal-xl fade" id="preview">
-                <div className="modal-dialog">
+                <div className="modal-dialog modal-dialog-scrollable">
                     <div className="modal-content">
-                        <div className="modal-header"></div>
+                        <div className="modal-header">Design Preview</div>
                         <div className="modal-body">
                             <RenderPreview
                                 layout={layout}
@@ -362,12 +365,29 @@ const Container = () => {
                     </div>
                 </div>
             </div>
+            <div className="modal modal-lg fade" id="setting">
+                <div className="modal-dialog">
+                    <div className="modal-content">
+                        <div className="modal-header">Setting</div>
+                        <div className="modal-body"></div>
+                        <div className="modal-footer"></div>
+                    </div>
+                </div>
+            </div>
+            <div className="modal modal-lg fade" id="authorization">
+                <div className="modal-dialog">
+                    <div className="modal-content">
+                        <div className="modal-header">Authorization</div>
+                        <div className="modal-body"></div>
+                        <div className="modal-footer"></div>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 };
 
 function CreateComponent(component, componentList) {
-    debugger;
     if (typeof componentList[component.type] !== "undefined") {
         return React.createElement(componentList[component.type], {
             key: component.id,

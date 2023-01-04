@@ -123,7 +123,6 @@ function Component({ componentData, components }) {
 }
 
 function CreateComponent(component, componentList) {
-    debugger;
     if (typeof componentList[component.type] !== "undefined") {
         return React.createElement(componentList[component.type], {
             key: component.id,

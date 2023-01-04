@@ -1,25 +1,27 @@
-html,
-body {
-    margin: 0;
-    padding: 0;
-    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
-    -moz-box-sizing: border-box; /* Firefox, other Gecko */
-    box-sizing: border-box; /* Opera/IE 8+ */
+:root {
+    --primary-color: #163e7c;
+    --secondary-color: #178fdb;
+    --selection-color: #0b5fff;
+    --hover-color: #8eabe7;
+    --background-color: #cdced9;
+    --empty-color: #a7a9bc;
+    --column-color: #9ea1d4;
+    --row-color: #ceedc7;
 }
 
 .body {
-    display: flex;
-    flex-direction: row;
+    /* display: flex;
+    flex-direction: row; */
 }
 
 .sideBar {
-    flex: 0 0 1;
+    /* flex: 0 0 1;
     width: 200px;
     padding: 10px;
-    border-right: 1px solid #111;
+    border-left: 1px solid #111;
     height: 100vh;
     border-left: 1px solid rgb(212, 212, 212);
-    /* background: #e1e1e1; */
+    background: #e1e1e1; */
 }
 
 .sideBarItem {
@@ -32,17 +34,17 @@ body {
 }
 
 .page {
-    flex: 1 1 auto;
+    /* flex: 1 1 auto;
     padding: 0 20px;
     margin: 20px;
     border: 1px solid #ffd4b2;
-    background-color: #ffd4b2;
+    background-color: #ffd4b2; */
 }
 
 .drop-zone {
     flex: 0 0 auto;
     /* border: 1px solid #e8e8e8; */
-    background-color: #e8e8e8;
+    background-color: var(--background-color);
     height: 10px;
     transition: 200ms all;
     margin: 5px;
@@ -64,25 +66,24 @@ body {
 .drop-zone.active,
 .trashDropZone.active {
     /* background: #00a2ff; */
-    outline: 3px solid #00a2ff;
+    outline: 3px solid var(--hover-color);
     transition: 100ms all;
 }
 
 .outlineBlue {
-    outline: 5px solid #00a2ff;
+    transition: 100ms all;
+    outline: 3px solid var(--selection-color);
 }
 
 .component {
-    border: 1px solid #579bb1;
-    background-color: #579bb1;
-    /* height: 60px; */
+    /* border: 1px solid var(--hover-color); */
+    background-color: var(--hover-color);
+    min-height: 60px;
     padding: 10px;
-    background: #aaa;
 }
 
 .column {
-    border: 1px solid #9ea1d4;
-    background-color: #9ea1d4;
+    background-color: var(--column-color);
     flex: 1 1 100%;
     padding: 10px;
 }
@@ -92,8 +93,7 @@ body {
 }
 
 .columns {
-    border: 1px solid #ceedc7;
-    background-color: #ceedc7;
+    background-color: var(--row-color);
     display: flex;
     padding: 20px 0;
 }
@@ -135,4 +135,18 @@ body {
     flex-direction: column;
     margin-bottom: 100px;
     /* border: 1px solid #efefef; */
+}
+
+.tooltip-bg {
+    background-color: var(--selection-color);
+}
+
+/* bs-utils */
+
+.translate-start {
+    transform: translateY(-100%) !important;
+}
+
+.start-0-custom {
+    left: -3px !important;
 }
