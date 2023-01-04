@@ -354,31 +354,33 @@ const Container = () => {
             <div className="modal modal-xl fade" id="preview">
                 <div className="modal-dialog modal-dialog-scrollable">
                     <div className="modal-content">
-                        <div className="modal-header">Design Preview</div>
+                        <div className="modal-header">
+                            <div className="d-flex vw-100 flex-row justify-content-between align-items-center">
+                                <div className="ps-2">Design Preview</div>
+                                <div className="align-self-center pe-2">
+                                    <div class="align-self-center btn-group btn-group-sm">
+                                        <button
+                                            type="button"
+                                            class="btn btn-outline-dark fa-solid fa-mobile-screen-button"
+                                        ></button>
+                                        <button
+                                            type="button"
+                                            class="btn btn-outline-dark fa-solid fa-display"
+                                        ></button>
+                                        <button
+                                            type="button"
+                                            class="btn btn-outline-dark fa-solid fa-tablet-screen-button"
+                                        ></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div className="modal-body">
                             <RenderPreview
                                 layout={layout}
                                 components={components}
                             ></RenderPreview>
                         </div>
-                        <div className="modal-footer"></div>
-                    </div>
-                </div>
-            </div>
-            <div className="modal modal-lg fade" id="setting">
-                <div className="modal-dialog">
-                    <div className="modal-content">
-                        <div className="modal-header">Setting</div>
-                        <div className="modal-body"></div>
-                        <div className="modal-footer"></div>
-                    </div>
-                </div>
-            </div>
-            <div className="modal modal-lg fade" id="authorization">
-                <div className="modal-dialog">
-                    <div className="modal-content">
-                        <div className="modal-header">Authorization</div>
-                        <div className="modal-body"></div>
                         <div className="modal-footer"></div>
                     </div>
                 </div>
