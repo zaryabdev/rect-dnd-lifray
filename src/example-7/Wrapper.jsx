@@ -111,6 +111,8 @@ function Settings() {
 }
 
 function ConfigTooltip({ title }) {
+    const context = useContext(AppContext);
+
     return (
         <span className="tooltip-bg rounded-top position-absolute  start-0-custom translate-start py-2">
             <span className="ps-3 pe-2 text-light grab">
@@ -133,8 +135,31 @@ function ConfigTooltip({ title }) {
             >
                 <i className="fa-solid fa-gear"></i>
             </span>
-            <span className="ps-2 pe-3 text-light pointer">
-                <i className="fa-solid fa-ellipsis-vertical"></i>
+            <span className=" text-light pointer">
+                <div className="btn-group dropend">
+                    <i
+                        type="button"
+                        className="ps-2 pe-3 mb-1 fa-solid fa-ellipsis-vertical"
+                        data-bs-toggle="dropdown"
+                    ></i>
+                    <ul className="dropdown-menu">
+                        <li>
+                            <span className="dropdown-item disabled">Edit</span>
+                        </li>
+                        <li>
+                            <span
+                                onClick={() => {
+                                    context.handleRemoveFromLayput(
+                                        context.selectedComponent
+                                    );
+                                }}
+                                className="dropdown-item text-danger"
+                            >
+                                Delete
+                            </span>
+                        </li>
+                    </ul>
+                </div>
             </span>
         </span>
     );

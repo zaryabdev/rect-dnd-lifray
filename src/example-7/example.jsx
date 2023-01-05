@@ -224,6 +224,7 @@ const Container = () => {
                     setComponents,
                     forbidDrag,
                     setForbidDrag,
+                    handleRemoveFromLayput,
                     CreateComponent,
                 }}
             >
@@ -275,15 +276,6 @@ const Container = () => {
                                     );
                                 }
                             )}
-
-                            <button
-                                className="btn btn-sm btn-dark m-2"
-                                onClick={() =>
-                                    handleRemoveFromLayput(selectedComponent)
-                                }
-                            >
-                                Delete
-                            </button>
                             <button
                                 className="btn btn-sm btn-dark m-2"
                                 onClick={() => handleLayoutSave()}

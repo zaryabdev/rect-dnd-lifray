@@ -38,11 +38,20 @@ const data2 = [
         amt: 2000,
     },
     {
+        name: "Page B",
+        uv: 3000,
+        pv: 1398,
+        amt: 2210,
+    },
+    {
         name: "Page E",
         uv: 1890,
         pv: 4800,
         amt: 2181,
     },
+];
+
+const data3 = [
     {
         name: "Page F",
         uv: 2390,
@@ -54,6 +63,12 @@ const data2 = [
         uv: 3490,
         pv: 4300,
         amt: 2100,
+    },
+    {
+        name: "Page B",
+        uv: 3000,
+        pv: 1398,
+        amt: 2210,
     },
 ];
 
@@ -70,6 +85,10 @@ const LineChart = (props) => {
 
             if (props.component.data.serviceKey === "two") {
                 setChartData(data2);
+            }
+
+            if (props.component.data.serviceKey === "three") {
+                setChartData(data3);
             }
         }
     }, [props]);
