@@ -70,7 +70,7 @@
 }
 
 .outlineBlue {
-    transition: 100ms all;
+    /* transition: 100ms all; */
     outline: 3px solid var(--selection-color);
 }
 
