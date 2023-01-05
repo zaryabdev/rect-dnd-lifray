@@ -1,21 +1,24 @@
-import React, { useRef } from "react";
+import React, { useRef, useContext } from "react";
+import classNames from "classnames";
 import { useDrag } from "react-dnd";
 import { ROW } from "./constants";
 import DropZone from "./DropZone";
 import Column from "./Column";
-
+import AppContext from "./AppContext";
 const Row = ({ rowData, components, handleDrop, path }) => {
     console.log({ rowData, components });
     const ref = useRef(null);
-
+    const context = useContext(AppContext);
     const [{ isDragging }, dragRef] = useDrag({
         item: {
             type: ROW,
             id: rowData.id,
+
             children: rowData.children,
             path,
         },
         type: ROW,
+        canDrag: !context.forbidDrag,
         collect: (monitor) => ({
             isDragging: monitor.isDragging(),
         }),
@@ -24,6 +27,11 @@ const Row = ({ rowData, components, handleDrop, path }) => {
     const opacity = isDragging ? 0.2 : 1;
 
     dragRef(ref);
+
+    let rowStyles = classNames({
+        move: !context.forbidDrag,
+        default: context.forbidDrag,
+    });
 
     function renderColumn(column, currentPath) {
         return (
@@ -38,7 +46,11 @@ const Row = ({ rowData, components, handleDrop, path }) => {
     }
 
     return (
-        <div ref={ref} style={{ opacity }} className="base draggable row">
+        <div
+            ref={ref}
+            style={{ opacity }}
+            className={`base draggable row ${rowStyles}`}
+        >
             <div className="columns">
                 {rowData.children.map((column, index) => {
                     const currentPath = `${path}-${index}`;

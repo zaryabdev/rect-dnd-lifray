@@ -1,15 +1,10 @@
 import React, { useRef, useContext } from "react";
 import { useDrag } from "react-dnd";
+import classNames from "classnames";
+
 import { COMPONENT } from "./constants";
 import Wrapper from "./Wrapper";
 import AppContext from "./AppContext";
-const style = {
-    // border: "1px dashed lightgray",
-    // padding: "0.5rem 1rem",
-    backgroundColor: "#F7F7F7",
-    cursor: "move",
-};
-
 import LineChart from "./components/LineChart";
 import MultiLineChart from "./components/MultilineChart";
 import StackedAreaChart from "./components/StackedAreaChart";
@@ -34,6 +29,7 @@ const Component = ({ componentData, components, path }) => {
             path: path,
         },
         type: COMPONENT,
+        canDrag: !context.forbidDrag,
         collect: (monitor) => ({
             isDragging: monitor.isDragging(),
         }),
@@ -46,14 +42,19 @@ const Component = ({ componentData, components, path }) => {
     const isSelected =
         context.selectedComponent.component_id === componentData.component_id;
 
+    let componentStyles = classNames({
+        move: !context.forbidDrag,
+        default: context.forbidDrag,
+    });
+
     return (
         <Wrapper component={component} isSelected={isSelected}>
             <div
                 ref={ref}
-                style={{ ...style, opacity }}
+                style={{ opacity }}
                 className={`component draggable ${
                     isSelected ? "outlineBlue" : ""
-                } `}
+                } ${componentStyles}`}
                 onClick={() => context.handleSelectComponent(component)}
             >
                 {context.CreateComponent(component, componentList)}

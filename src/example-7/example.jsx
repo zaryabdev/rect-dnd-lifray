@@ -29,7 +29,7 @@ const Container = () => {
     // const initialComponents = initialData.components;
     const [layout, setLayout] = useState(initialLayout);
     const [components, setComponents] = useState(initialComponents);
-
+    const [forbidDrag, setForbidDrag] = useState(true);
     const [selectedComponent, setSelectedComponent] = useState({});
 
     // useEffect(() => {
@@ -222,6 +222,8 @@ const Container = () => {
                     handleSelectComponent,
                     components,
                     setComponents,
+                    forbidDrag,
+                    setForbidDrag,
                     CreateComponent,
                 }}
             >
@@ -293,6 +295,12 @@ const Container = () => {
                                 onClick={() => handleGetLayout()}
                             >
                                 Get
+                            </button>
+                            <button
+                                className="btn btn-sm btn-dark m-2"
+                                onClick={() => setForbidDrag((prev) => !prev)}
+                            >
+                                Toggle Drag
                             </button>
                             <div>
                                 <code>
