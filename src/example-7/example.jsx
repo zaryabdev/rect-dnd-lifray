@@ -215,6 +215,13 @@ const Container = () => {
                 >
                     Preview
                 </button>
+                <button
+                    className="btn btn-sm btn-warning mx-2"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#collapseWidget"
+                >
+                    Toggle Widget
+                </button>
             </div>
             <AppContext.Provider
                 value={{
@@ -229,8 +236,8 @@ const Container = () => {
                 }}
             >
                 <div className="container-fluid px-0">
-                    <div className="row">
-                        <div className="col-sm-10">
+                    <div className="d-flex flex-row">
+                        <div className="flex-grow-1">
                             {layout.map((row, index) => {
                                 const currentPath = `${index}`;
 
@@ -262,53 +269,65 @@ const Container = () => {
                                 onDrop={handleDropToTrashBin}
                             ></TrashDropZone>
                         </div>
-                        <div className="col-sm-2">
-                            <center>
-                                <b>Widgets</b>
-                            </center>
-                            {Object.values(SIDEBAR_ITEMS).map(
-                                (sideBarItem, index) => {
-                                    return (
-                                        <SideBarItem
-                                            key={sideBarItem.id}
-                                            data={sideBarItem}
-                                        />
-                                    );
-                                }
-                            )}
-                            <button
-                                className="btn btn-sm btn-dark m-2"
-                                onClick={() => handleLayoutSave()}
-                            >
-                                Save
-                            </button>
-                            <button
-                                className="btn btn-sm btn-dark m-2"
-                                onClick={() => handleGetLayout()}
-                            >
-                                Get
-                            </button>
-                            <button
-                                className="btn btn-sm btn-dark m-2"
-                                onClick={() => setForbidDrag((prev) => !prev)}
-                            >
-                                Toggle Drag
-                            </button>
-                            <div>
-                                <code>
-                                    {JSON.stringify(
-                                        selectedComponent.data,
-                                        null,
-                                        2
-                                    )}
-                                </code>
+                        <div
+                            class="collapse collapse-horizontal"
+                            id="collapseWidget"
+                        >
+                            <div style={{ width: "300px" }}>
+                                <center>
+                                    <b>Widgets</b>
+                                </center>
+                                {Object.values(SIDEBAR_ITEMS).map(
+                                    (sideBarItem, index) => {
+                                        return (
+                                            <SideBarItem
+                                                key={sideBarItem.id}
+                                                data={sideBarItem}
+                                            />
+                                        );
+                                    }
+                                )}
+                                <button
+                                    className="btn btn-sm btn-dark m-2"
+                                    onClick={() => handleLayoutSave()}
+                                >
+                                    Save
+                                </button>
+                                <button
+                                    className="btn btn-sm btn-dark m-2"
+                                    onClick={() => handleGetLayout()}
+                                >
+                                    Get
+                                </button>
+                                <button
+                                    className="btn btn-sm btn-dark m-2"
+                                    onClick={() =>
+                                        setForbidDrag((prev) => !prev)
+                                    }
+                                >
+                                    Toggle Drag
+                                </button>
+                                <div>
+                                    <code>
+                                        {JSON.stringify(
+                                            selectedComponent.data,
+                                            null,
+                                            2
+                                        )}
+                                    </code>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </AppContext.Provider>
 
-            <div className="modal modal-xl fade" id="preview">
+            <div
+                id="preview"
+                className="modal modal-xl fade "
+                data-bs-backdrop="static"
+                data-bs-keyboard="false"
+            >
                 <div className="modal-dialog modal-dialog-scrollable">
                     <div className="modal-content">
                         <div className="modal-header">
@@ -329,6 +348,14 @@ const Container = () => {
                                             className="btn btn-outline-dark fa-solid fa-tablet-screen-button"
                                         ></button>
                                     </div>
+                                </div>
+                                <div className="pe-2">
+                                    <button
+                                        type="button"
+                                        class="btn-close"
+                                        data-bs-dismiss="modal"
+                                        aria-label="Close"
+                                    ></button>
                                 </div>
                             </div>
                         </div>
